@@ -61,7 +61,10 @@ float3 phongLighting(
                                  }
                                  case Point:   { break; }
                                  case Spot:    { break; }
-                                 case Ambient: { break; }
+                                 case Ambient: {
+                                     ambientColor += light.color;
+                                     break;
+                                 }
                                  case unused:  { break; }
                              }
                          }
