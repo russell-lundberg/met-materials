@@ -30,33 +30,15 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-#include <metal_stdlib>
-using namespace metal;
-#import "Lighting.h"
-#import "ShaderDefs.h"
+#ifndef Lighting_h
+#define Lighting_h
 
-fragment float4 fragment_main(
-  constant Params &params [[buffer(ParamsBuffer)]],
-    VertexOut in [[stage_in]],
-    texture2d<float> baseColorTexture [[texture(BaseColor)]],
-    constant Light *lights [[buffer(LightBuffer)]])
-{
-  constexpr sampler textureSampler(
-    filter::linear,
-    mip_filter::linear,
-    max_anisotropy(8),
-    address::repeat);
-  float3 baseColor = baseColorTexture.sample(
-    textureSampler,
-    in.uv * params.tiling).rgb;
-    
-    float3 normalDirection = normalize(in.worldNormal);
-    float3 color = phongLighting(
-        normalDirection,
-        in.worldPosition,
-        params,
-        lights,
-        baseColor
-    );
-  return float4(color, 1);
-}
+#import "Common.h"
+
+float3 phongLighting(
+                      float3 normal,
+                      float3 position,
+                      constant Params &params,
+                      constant Light *lights,
+                      float3 baseColor);
+#endif /* Lighting_h */

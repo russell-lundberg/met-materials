@@ -87,4 +87,6 @@ struct GameScene {
     }
     gizmo.position = (forwardVector - rightVector) * 10
   }
+    
+    let lighting = SceneLighting()
 }

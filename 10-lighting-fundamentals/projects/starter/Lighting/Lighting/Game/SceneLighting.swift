@@ -30,33 +30,29 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-#include <metal_stdlib>
-using namespace metal;
-#import "Lighting.h"
-#import "ShaderDefs.h"
+import Foundation
 
-fragment float4 fragment_main(
-  constant Params &params [[buffer(ParamsBuffer)]],
-    VertexOut in [[stage_in]],
-    texture2d<float> baseColorTexture [[texture(BaseColor)]],
-    constant Light *lights [[buffer(LightBuffer)]])
-{
-  constexpr sampler textureSampler(
-    filter::linear,
-    mip_filter::linear,
-    max_anisotropy(8),
-    address::repeat);
-  float3 baseColor = baseColorTexture.sample(
-    textureSampler,
-    in.uv * params.tiling).rgb;
+struct SceneLighting {
+    static func buildDefaultLight() -> Light {
+        var light = Light()
+        light.position = [ 0, 0, 0 ]
+        light.color = [ 1, 1, 1 ]
+        light.specularColor = [ 0.6,  0.6,  0.6 ]
+        light.attenuation = [1, 0, 0]
+        light.type = Sun
+        return light
+    }
     
-    float3 normalDirection = normalize(in.worldNormal);
-    float3 color = phongLighting(
-        normalDirection,
-        in.worldPosition,
-        params,
-        lights,
-        baseColor
-    );
-  return float4(color, 1);
+    let sunlight: Light = {
+        var light = Self.buildDefaultLight()
+        /// position is in world space
+        light.position = [1, 2, -2]
+        return light
+    }()
+    
+    var lights: [Light] = []
+    
+    init() {
+        lights.append(sunlight)
+    }
 }

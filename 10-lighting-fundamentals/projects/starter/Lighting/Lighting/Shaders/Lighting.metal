@@ -32,31 +32,38 @@
 
 #include <metal_stdlib>
 using namespace metal;
-#import "Lighting.h"
-#import "ShaderDefs.h"
 
-fragment float4 fragment_main(
-  constant Params &params [[buffer(ParamsBuffer)]],
-    VertexOut in [[stage_in]],
-    texture2d<float> baseColorTexture [[texture(BaseColor)]],
-    constant Light *lights [[buffer(LightBuffer)]])
-{
-  constexpr sampler textureSampler(
-    filter::linear,
-    mip_filter::linear,
-    max_anisotropy(8),
-    address::repeat);
-  float3 baseColor = baseColorTexture.sample(
-    textureSampler,
-    in.uv * params.tiling).rgb;
-    
-    float3 normalDirection = normalize(in.worldNormal);
-    float3 color = phongLighting(
-        normalDirection,
-        in.worldPosition,
-        params,
-        lights,
-        baseColor
-    );
-  return float4(color, 1);
+#import "Lighting.h"
+
+float3 phongLighting(
+                     float3 normal,
+                     float3 position,
+                     constant Params &params,
+                     constant Light *lights,
+                     float3 baseColor) {
+                         float3 diffuseColor = 0;
+                         float3 ambientColor = 0;
+                         float3 specularColor = 0;
+                         for (uint i = 0; i < params.lightCount ; i++) {
+                             Light light = lights[i];
+                             switch (light.type) {
+                                 case Sun:     {
+                                     // 1
+                                     float3 lightDirection = normalize(-light.position);
+                                     // 2
+                                     float3 diffuseIntensity =
+                                        saturate(-dot(lightDirection, normal));
+                                     //3
+                                     diffuseColor += light.color
+                                        * baseColor
+                                        * diffuseIntensity;
+                                     break;
+                                 }
+                                 case Point:   { break; }
+                                 case Spot:    { break; }
+                                 case Ambient: { break; }
+                                 case unused:  { break; }
+                             }
+                         }
+                         return diffuseColor + specularColor + ambientColor;
 }

@@ -44,6 +44,8 @@ extension Model {
     var params = fragment
     params.tiling = tiling
     uniforms.modelMatrix = transform.modelMatrix
+      
+      uniforms.normalMatrix = uniforms.modelMatrix.upperLeft
 
     encoder.setVertexBytes(
       &uniforms,

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46D43AAF2C5C9DE6000BE881 /* SceneLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D43AAE2C5C9DE6000BE881 /* SceneLighting.swift */; };
+		46D43AB22C5CBC20000BE881 /* Lighting.metal in Sources */ = {isa = PBXBuildFile; fileRef = 46D43AB12C5CBC20000BE881 /* Lighting.metal */; };
 		82133A372AAC044B00D7C004 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82133A362AAC044B00D7C004 /* Mesh.swift */; };
 		82133A392AAC046600D7C004 /* Submesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82133A382AAC046600D7C004 /* Submesh.swift */; };
 		8224354B2AAD5734005A93D6 /* TextureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8224354A2AAD5734005A93D6 /* TextureController.swift */; };
@@ -38,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46D43AAE2C5C9DE6000BE881 /* SceneLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneLighting.swift; sourceTree = "<group>"; };
+		46D43AB02C5CBB1A000BE881 /* Lighting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lighting.h; sourceTree = "<group>"; };
+		46D43AB12C5CBC20000BE881 /* Lighting.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Lighting.metal; sourceTree = "<group>"; };
 		82133A352AAC005300D7C004 /* ShaderDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderDefs.h; sourceTree = "<group>"; };
 		82133A362AAC044B00D7C004 /* Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
 		82133A382AAC046600D7C004 /* Submesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submesh.swift; sourceTree = "<group>"; };
@@ -109,6 +114,8 @@
 				82133A352AAC005300D7C004 /* ShaderDefs.h */,
 				827621AD2AA8779800CE91D1 /* Vertex.metal */,
 				827621AF2AA8779E00CE91D1 /* Fragment.metal */,
+				46D43AB02C5CBB1A000BE881 /* Lighting.h */,
+				46D43AB12C5CBC20000BE881 /* Lighting.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -165,6 +172,7 @@
 				8272AC312AAD8C37007301AB /* Camera.swift */,
 				8272AC372AAD9381007301AB /* PlayerCamera.swift */,
 				822EF52E2AA86872008CC2C8 /* Rendering.swift */,
+				46D43AAE2C5C9DE6000BE881 /* SceneLighting.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -316,11 +324,13 @@
 				8272AC342AAD8E3A007301AB /* InputController.swift in Sources */,
 				8272AC422AADB6E9007301AB /* DebugLights.metal in Sources */,
 				824770F72AA7FDDA0095AB72 /* Renderer.swift in Sources */,
+				46D43AAF2C5C9DE6000BE881 /* SceneLighting.swift in Sources */,
 				822EF5292AA865D2008CC2C8 /* MathLibrary.swift in Sources */,
 				824770E62AA7FA0B0095AB72 /* ContentView.swift in Sources */,
 				8272AC382AAD9381007301AB /* PlayerCamera.swift in Sources */,
 				82133A372AAC044B00D7C004 /* Mesh.swift in Sources */,
 				8272AC3B2AAD96F9007301AB /* GameController.swift in Sources */,
+				46D43AB22C5CBC20000BE881 /* Lighting.metal in Sources */,
 				824771002AA80C930095AB72 /* MetalView.swift in Sources */,
 				827621B02AA8779E00CE91D1 /* Fragment.metal in Sources */,
 				8272AC4A2AADB776007301AB /* Transform.swift in Sources */,
@@ -463,7 +473,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Lighting/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 95633C84RD;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -482,7 +492,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kodeco.Lighting;
+				PRODUCT_BUNDLE_IDENTIFIER = intelefy.Lighting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -502,7 +512,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Lighting/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 95633C84RD;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -521,7 +531,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kodeco.Lighting;
+				PRODUCT_BUNDLE_IDENTIFIER = intelefy.Lighting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
