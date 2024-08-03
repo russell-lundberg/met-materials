@@ -110,7 +110,8 @@ extension Renderer {
   func updateUniforms(scene: GameScene) {
     uniforms.viewMatrix = scene.camera.viewMatrix
     uniforms.projectionMatrix = scene.camera.projectionMatrix
-      params.lightCount = UInt32(scene.lighting.lights.count)
+    params.lightCount = UInt32(scene.lighting.lights.count)
+    params.cameraPosition = scene.camera.position
   }
 
   func draw(scene: GameScene, in view: MTKView) {

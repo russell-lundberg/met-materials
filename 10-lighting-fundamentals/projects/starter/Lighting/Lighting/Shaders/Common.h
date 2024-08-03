@@ -46,8 +46,8 @@ typedef struct {
   uint width;
   uint height;
   uint tiling;
-    uint lightCount;
-    vector_float3 cameraPosition;
+  uint lightCount;
+  vector_float3 cameraPosition;
 } Params;
 
 typedef enum {
