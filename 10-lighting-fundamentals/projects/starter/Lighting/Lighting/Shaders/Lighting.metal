@@ -75,7 +75,22 @@ float3 phongLighting(
                     }
                     break;
                 }
-                case Point:   { break; }
+                case Point:   {
+                    // 1
+                    float d = distance(light.position, position);
+                    // 2
+                    float3 lightDirection = normalize(light.position - position);
+                    // 3
+                    float attenuation = 1.0 / ( 
+                            light.attenuation.x + light.attenuation.y *
+                                d + light.attenuation.z * d * d );
+                    float diffuseIntensity = saturate(dot(lightDirection, normal));
+                    float3 color = light.color * baseColor * diffuseIntensity;
+                    // 4
+                    color *= attenuation;
+                    diffuseColor += color;
+                    break;
+                }
                 case Spot:    { break; }
                 case Ambient: {
                     ambientColor += light.color;
