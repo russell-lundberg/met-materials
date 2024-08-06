@@ -55,7 +55,8 @@ typedef enum {
   UVBuffer = 1,
   UniformsBuffer = 11,
   ParamsBuffer = 12,
-  LightBuffer = 13
+  LightBuffer = 13,
+    MaterialBuffer = 14,
 } BufferIndices;
 
 typedef enum {
@@ -87,5 +88,12 @@ typedef struct {
   vector_float3 coneDirection;
   float coneAttenuation;
 } Light;
+
+typedef struct {
+    vector_float3 baseColor;
+    float roughness;
+    float metallic;
+    float ambientOcclusion;
+} Material;
 
 #endif /* Common_h */

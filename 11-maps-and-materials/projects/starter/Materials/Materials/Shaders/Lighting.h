@@ -42,7 +42,7 @@ float3 phongLighting(
   constant Light *lights,
   float3 baseColor);
 
-/*
+
 // PBR functions
 float3 computeSpecular(
   constant Light *lights,
@@ -55,6 +55,6 @@ float3 computeDiffuse(
   constant Params &params,
   Material material,
   float3 normal);
-*/
+
 
 #endif /* Lighting_h */

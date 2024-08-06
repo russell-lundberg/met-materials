@@ -36,27 +36,42 @@ using namespace metal;
 #import "ShaderDefs.h"
 
 fragment float4 fragment_main(
-  constant Params &params [[buffer(ParamsBuffer)]],
-  VertexOut in [[stage_in]],
-  constant Light *lights [[buffer(LightBuffer)]],
-  texture2d<float> baseColorTexture [[texture(BaseColor)]])
+    constant Params &params [[buffer(ParamsBuffer)]],
+    VertexOut in [[stage_in]],
+    constant Light *lights [[buffer(LightBuffer)]],
+    constant Material &_material [[buffer(MaterialBuffer)]],
+    texture2d<float> baseColorTexture [[texture(BaseColor)]])
 {
-  constexpr sampler textureSampler(
+    Material material = _material;
+    constexpr sampler textureSampler(
     filter::linear,
     mip_filter::linear,
     max_anisotropy(8),
     address::repeat);
-  float3 baseColor = baseColorTexture.sample(
-    textureSampler,
-    in.uv * params.tiling).rgb;
-  
-  float3 normalDirection = normalize(in.worldNormal);
-  float3 color = phongLighting(
-    normalDirection,
-    in.worldPosition,
-    params,
-    lights,
-    baseColor
-  );
-  return float4(color, 1);
+    material.roughness = 0.4;
+    if (!is_null_texture(baseColorTexture)) {
+        material.baseColor = baseColorTexture.sample(
+                                                      textureSampler,
+                                                      in.uv * params.tiling).rgb;
+    }
+
+//    float3 normalDirection = normalize(in.worldNormal);
+//
+//  float3 color = phongLighting(
+//    normalDirection,
+//    in.worldPosition,
+//    params,
+//    lights,
+//    baseColor
+//  );
+//  return float4(color, 1);
+    // 1
+    float3 normal = normalize(in.worldNormal);
+    float3 diffuseColor = computeDiffuse(lights, params, material, normal);
+    
+    // 2
+    float3 specularColor = computeSpecular(lights, params, material, normal);
+    
+    // 3
+    return float4(diffuseColor + specularColor, 1);
 }

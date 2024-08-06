@@ -43,6 +43,8 @@ struct Submesh {
   }
 
   var textures: Textures
+    
+    var material: Material
 }
 
 extension Submesh {
@@ -52,6 +54,7 @@ extension Submesh {
     indexBuffer = mtkSubmesh.indexBuffer.buffer
     indexBufferOffset = mtkSubmesh.indexBuffer.offset
     textures = Textures(material: mdlSubmesh.material)
+      material = Material(material: mdlSubmesh.material)
   }
 }
 
@@ -78,4 +81,15 @@ private extension MDLMaterial {
     }
     return nil
   }
+}
+
+private extension  Material {
+    init(material: MDLMaterial?) {
+        self.init()
+        if let baseColor = material?.property(with: .baseColor), 
+                baseColor.type == .float3 {
+            self.baseColor = baseColor.float3Value
+        }
+        ambientOcclusion = 1
+    }
 }

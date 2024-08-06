@@ -71,6 +71,12 @@ extension Model {
         encoder.setFragmentTexture(
           submesh.textures.baseColor,
           index: BaseColor.index)
+          
+        var material = submesh.material
+          encoder.setFragmentBytes(
+            &material,
+            length: MemoryLayout<Material>.stride,
+            index: MaterialBuffer.index)
 
         encoder.drawIndexedPrimitives(
           type: .triangle,
